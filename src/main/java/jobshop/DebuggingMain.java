@@ -27,9 +27,8 @@ public class DebuggingMain {
             System.out.println("\nENCODING: " + enc);
 
             Schedule sched = enc.toSchedule();
-            // TODO: make it print something meaningful
-            // by implementing the toString() method
-            System.out.println("SCHEDULE: " + sched);
+            System.out.println(enc.toString());
+            System.out.println("SCHEDULE: \n" + sched);
             System.out.println("VALID: " + sched.isValid());
             System.out.println("MAKESPAN: " + sched.makespan());
 

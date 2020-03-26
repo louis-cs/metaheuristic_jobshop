@@ -63,4 +63,14 @@ public class Schedule {
     public Schedule copy() {
         return new Schedule(this.pb, this.times);
     }
+
+    public String toString(){
+        StringBuilder output = new StringBuilder();
+        for (int i=0; i<times.length;i++){
+            for (int j=0; j<times[i].length;j++) {
+                output.append("job ").append(i).append(" task ").append(j).append(" start: ").append(times[i][j]).append("\n");
+            }
+        }
+        return output.toString();
+    }
 }
