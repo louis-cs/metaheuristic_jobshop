@@ -3,7 +3,6 @@ package jobshop.solvers;
 import jobshop.*;
 import jobshop.encodings.JobNumbers;
 
-import java.util.Optional;
 import java.util.Random;
 
 public class RandomSolver implements Solver {
@@ -27,7 +26,6 @@ public class RandomSolver implements Solver {
                 best = s;
             }
         }
-
 
         return new Result(instance, best, Result.ExitCause.Timeout);
     }

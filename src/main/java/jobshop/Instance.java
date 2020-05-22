@@ -1,5 +1,7 @@
 package jobshop;
 
+import jobshop.encodings.Task;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,14 +20,20 @@ public class Instance {
     /** Number of machines, assumed to be same as number of tasks. */
     public final int numMachines;
 
-    final int[][] durations;
-    final int[][] machines;
+    private final int[][] durations;
+    private final int[][] machines;
 
     public int duration(int job, int task) {
         return durations[job][task];
     }
+    public int duration(Task t) {
+        return duration(t.job, t.task);
+    }
     public int machine(int job, int task) {
         return machines[job][task];
+    }
+    public int machine(Task t) {
+        return this.machine(t.job, t.task);
     }
 
     /** among the tasks of the given job, returns the task index that uses the given machine. */
@@ -37,7 +45,7 @@ public class Instance {
         throw new RuntimeException("No task targeting machine "+wanted_machine+" on job "+job);
     }
 
-    Instance(int numJobs, int numTasks) {
+    private Instance(int numJobs, int numTasks) {
         this.numJobs = numJobs;
         this.numTasks = numTasks;
         this.numMachines = numTasks;
@@ -46,6 +54,7 @@ public class Instance {
         machines = new int[numJobs][numTasks];
     }
 
+    /** Parses a instance from a file. */
     public static Instance fromFile(Path path) throws IOException {
         Iterator<String> lines = Files.readAllLines(path).stream()
                 .filter(l -> !l.startsWith("#"))
